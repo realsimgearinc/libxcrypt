@@ -1,4 +1,5 @@
 /* Copyright (C) 2007-2017 Thorsten Kukuk
+   Copyright (C) 2025 Björn Esser
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Lesser General Public License
@@ -26,9 +27,14 @@ crypt_gensalt (const char *prefix, unsigned long count,
                const char *rbytes, int nrbytes)
 {
   static char output[CRYPT_GENSALT_OUTPUT_SIZE];
+  char buf[CRYPT_GENSALT_OUTPUT_SIZE];
 
-  return crypt_gensalt_rn (prefix, count,
-                           rbytes, nrbytes, output, sizeof (output));
+  crypt_gensalt_rn (prefix, count,
+                    rbytes, nrbytes,
+                    buf, sizeof (buf));
+  strcpy_or_abort (output, sizeof (output), buf);
+
+  return output[0] == '*' ? 0 : output;
 }
 SYMVER_crypt_gensalt;
 #endif
