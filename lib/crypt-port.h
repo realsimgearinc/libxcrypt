@@ -20,10 +20,6 @@
 #ifndef _CRYPT_PORT_H
 #define _CRYPT_PORT_H 1
 
-#ifndef HAVE_CONFIG_H
-#error "Run configure before compiling; see INSTALL for instructions"
-#endif
-
 #include "config.h"
 
 #undef NDEBUG
@@ -76,6 +72,8 @@
 /* Suppression of unused-argument warnings.  */
 #if defined __GNUC__ && __GNUC__ >= 3
 # define ARG_UNUSED(x) x __attribute__ ((__unused__))
+#elif defined _MSC_VER
+# define ARG_UNUSED(x) (void)(x)
 #else
 # define ARG_UNUSED(x) x
 #endif
@@ -83,6 +81,8 @@
 /* Functions that should not be inlined.  */
 #if defined __GNUC__ && __GNUC__ >= 3
 # define NO_INLINE __attribute__ ((__noinline__))
+#elif defined _MSC_VER
+# define NO_INLINE __declspec(noinline)
 #else
 # error "Don't know how to prevent function inlining"
 #endif
@@ -508,6 +508,22 @@ extern const unsigned char ascii64[65];
 /* The "scratch" area passed to each of the individual hash functions is
    this big.  */
 #define ALG_SPECIFIC_SIZE 8192
+
+#if defined _MSC_VER
+# include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+#endif
+
+#ifdef _MSC_VER
+#ifndef alignas
+# define alignas _Alignas
+#endif
+
+#ifndef alignof
+# define alignof _Alignof
+#endif
+#endif  // _MSC_VER
+
 
 #include "crypt.h"
 

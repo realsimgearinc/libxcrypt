@@ -90,10 +90,12 @@ to64 (uint8_t *s, unsigned long v, int n)
  */
 void
 crypt_sha1crypt_rn (const char *phrase, size_t phr_size,
-                    const char *setting, size_t ARG_UNUSED (set_size),
+                    const char *setting, size_t set_size,
                     uint8_t *output, size_t out_size,
                     void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (set_size);
+
   static const char *magic = "$sha1$";
 
   if ((out_size < (strlen (magic) + 2 + 10 + CRYPT_SHA1_SALT_LENGTH +

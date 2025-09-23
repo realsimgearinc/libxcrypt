@@ -83,10 +83,12 @@ sha512_process_recycled_bytes (unsigned char block[64], size_t len,
 
 void
 crypt_sha512crypt_rn (const char *phrase, size_t phr_size,
-                      const char *setting, size_t ARG_UNUSED (set_size),
+                      const char *setting, size_t set_size,
                       uint8_t *output, size_t out_size,
                       void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (set_size);
+
   /* This shouldn't ever happen, but...  */
   if (out_size < SHA512_HASH_LENGTH
       || scr_size < sizeof (struct sha512_buffer))

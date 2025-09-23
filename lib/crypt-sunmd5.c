@@ -154,10 +154,12 @@ write_itoa64_2 (uint8_t *output,
 
 void
 crypt_sunmd5_rn (const char *phrase, size_t phr_size,
-                 const char *setting, size_t ARG_UNUSED (set_size),
+                 const char *setting, size_t set_size,
                  uint8_t *output, size_t out_size,
                  void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (set_size);
+
   struct crypt_sunmd5_scratch
   {
     MD5_CTX ctx;

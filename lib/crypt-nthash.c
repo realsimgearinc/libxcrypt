@@ -55,10 +55,12 @@ static_assert (sizeof (crypt_nt_internal_t) <= ALG_SPECIFIC_SIZE,
 
 void
 crypt_nt_rn (const char *phrase, size_t phr_size,
-             const char *setting, size_t ARG_UNUSED (set_size),
+             const char *setting, size_t set_size,
              uint8_t *output, size_t out_size,
              void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (set_size);
+
   static const char *magic = "$3$";
   static const uint8_t *hexconvtab = (const uint8_t*) "0123456789abcdef";
 
@@ -108,11 +110,14 @@ crypt_nt_rn (const char *phrase, size_t phr_size,
    so it can be used as SETTING for the crypt function.  */
 void
 gensalt_nt_rn (unsigned long count,
-               ARG_UNUSED(const uint8_t *rbytes),
-               ARG_UNUSED(size_t nrbytes),
+               const uint8_t *rbytes,
+               size_t nrbytes,
                uint8_t *output,
                size_t o_size)
 {
+  ARG_UNUSED(rbytes);
+  ARG_UNUSED(nrbytes);
+
   const char *prefix = "$3$";
 
   /* Minimal O_SIZE to store the prefix.  */

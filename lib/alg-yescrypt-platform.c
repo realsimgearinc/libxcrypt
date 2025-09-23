@@ -25,6 +25,8 @@
 #include <linux/mman.h> /* for MAP_HUGE_2MB */
 #endif
 
+#include "alg-yescrypt.h"
+
 #define HUGEPAGE_THRESHOLD		(32 * 1024 * 1024)
 
 #ifdef __x86_64__

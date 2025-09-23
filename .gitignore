@@ -142,3 +142,6 @@ libxcrypt-*.srpm
 libxcrypt-*.src.rpm
 libxcrypt-*/
 */libxcrypt-*.rpm
+
+# build
+build/

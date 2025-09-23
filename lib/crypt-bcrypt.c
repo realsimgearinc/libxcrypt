@@ -982,11 +982,14 @@ BF_gensalt (char subtype, unsigned long count,
 
 #if INCLUDE_bcrypt
 void
-crypt_bcrypt_rn (const char *phrase, size_t ARG_UNUSED (phr_size),
-                 const char *setting, size_t ARG_UNUSED (set_size),
+crypt_bcrypt_rn (const char *phrase, size_t phr_size,
+                 const char *setting, size_t set_size,
                  uint8_t *output, size_t out_size,
                  void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (phr_size);
+  ARG_UNUSED (set_size);
+
   BF_full_crypt (phrase, setting, output, out_size, scratch, scr_size);
 }
 
@@ -1001,11 +1004,14 @@ gensalt_bcrypt_rn (unsigned long count,
 
 #if INCLUDE_bcrypt_a
 void
-crypt_bcrypt_a_rn (const char *phrase, size_t ARG_UNUSED (phr_size),
-                   const char *setting, size_t ARG_UNUSED (set_size),
+crypt_bcrypt_a_rn (const char *phrase, size_t phr_size,
+                   const char *setting, size_t set_size,
                    uint8_t *output, size_t out_size,
                    void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (phr_size);
+  ARG_UNUSED (set_size);
+
   BF_full_crypt (phrase, setting, output, out_size, scratch, scr_size);
 }
 
@@ -1020,21 +1026,30 @@ gensalt_bcrypt_a_rn (unsigned long count,
 
 #if INCLUDE_bcrypt_x
 void
-crypt_bcrypt_x_rn (const char *phrase, size_t ARG_UNUSED (phr_size),
-                   const char *setting, size_t ARG_UNUSED (set_size),
+crypt_bcrypt_x_rn (const char *phrase, size_t phr_size,
+                   const char *setting, size_t set_size,
                    uint8_t *output, size_t out_size,
                    void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (phr_size);
+  ARG_UNUSED (set_size);
+
   BF_full_crypt (phrase, setting, output, out_size, scratch, scr_size);
 }
 
 void
-gensalt_bcrypt_x_rn (ARG_UNUSED(unsigned long count),
-                     ARG_UNUSED(const uint8_t *rbytes),
-                     ARG_UNUSED(size_t nrbytes),
-                     ARG_UNUSED(uint8_t *output),
-                     ARG_UNUSED(size_t o_size))
+gensalt_bcrypt_x_rn (unsigned long count,
+                     const uint8_t *rbytes,
+                     size_t nrbytes,
+                     uint8_t *output,
+                     size_t o_size)
 {
+  ARG_UNUSED(count);
+  ARG_UNUSED(rbytes);
+  ARG_UNUSED(nrbytes);
+  ARG_UNUSED(output);
+  ARG_UNUSED(o_size);
+
   /* The prefix '$2x$' MUST NOT be used for computing new hashes.  */
   errno = EINVAL;
   return;
@@ -1043,11 +1058,14 @@ gensalt_bcrypt_x_rn (ARG_UNUSED(unsigned long count),
 
 #if INCLUDE_bcrypt_y
 void
-crypt_bcrypt_y_rn (const char *phrase, size_t ARG_UNUSED (phr_size),
-                   const char *setting, size_t ARG_UNUSED (set_size),
+crypt_bcrypt_y_rn (const char *phrase, size_t phr_size,
+                   const char *setting, size_t set_size,
                    uint8_t *output, size_t out_size,
                    void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (phr_size);
+  ARG_UNUSED (set_size);
+
   BF_full_crypt (phrase, setting, output, out_size, scratch, scr_size);
 }
 

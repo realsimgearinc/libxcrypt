@@ -143,11 +143,14 @@ des_gen_hash (struct des_ctx *ctx, uint32_t count, uint8_t *output,
 #if INCLUDE_descrypt
 /* The original UNIX DES-based password hash, no extensions.  */
 void
-crypt_descrypt_rn (const char *phrase, size_t ARG_UNUSED (phr_size),
-                   const char *setting, size_t ARG_UNUSED (set_size),
+crypt_descrypt_rn (const char *phrase, size_t phr_size,
+                   const char *setting, size_t set_size,
                    uint8_t *output, size_t out_size,
                    void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (phr_size);
+  ARG_UNUSED (set_size);
+
   /* This shouldn't ever happen, but...  */
   if (out_size < DES_TRD_OUTPUT_LEN || scr_size < sizeof (struct des_buffer))
     {
@@ -310,11 +313,13 @@ crypt_bigcrypt_rn (const char *phrase, size_t phr_size,
    permit long passwords and have more salt and a controllable iteration
    count, but are still unacceptably weak by modern standards.  */
 void
-crypt_bsdicrypt_rn (const char *phrase, size_t ARG_UNUSED (phr_size),
+crypt_bsdicrypt_rn (const char *phrase, size_t phr_size,
                     const char *setting, size_t set_size,
                     uint8_t *output, size_t out_size,
                     void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (phr_size);
+
   /* This shouldn't ever happen, but...  */
   if (out_size < DES_EXT_OUTPUT_LEN || scr_size < sizeof (struct des_buffer))
     {

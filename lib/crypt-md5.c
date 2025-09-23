@@ -58,10 +58,12 @@ static_assert (sizeof (struct md5_buffer) <= ALG_SPECIFIC_SIZE,
    libcs.  */
 void
 crypt_md5crypt_rn (const char *phrase, size_t phr_size,
-                   const char *setting, size_t ARG_UNUSED (set_size),
+                   const char *setting, size_t set_size,
                    uint8_t *output, size_t out_size,
                    void *scratch, size_t scr_size)
 {
+  ARG_UNUSED (set_size);
+
   /* This shouldn't ever happen, but...  */
   if (out_size < MD5_HASH_LENGTH || scr_size < sizeof (struct md5_buffer))
     {

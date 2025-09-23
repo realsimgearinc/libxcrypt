@@ -82,10 +82,12 @@ SHA256_Update_recycled (SHA256_CTX *ctx,
 
 void
 crypt_sha256crypt_rn (const char *phrase, size_t phr_size,
-                      const char *setting, size_t ARG_UNUSED (set_size),
+                      const char *setting, size_t set_size,
                       uint8_t *output, size_t out_size,
                       void *scratch, size_t scr_size)
 {
+  ARG_UNUSED(set_size);
+
   /* This shouldn't ever happen, but...  */
   if (out_size < SHA256_HASH_LENGTH
       || scr_size < sizeof (struct sha256_buffer))
