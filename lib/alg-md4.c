@@ -228,7 +228,7 @@ void MD4_Update(MD4_CTX *ctx, const void *data, size_t size)
 	memcpy(ctx->buffer, data, size);
 }
 
-#define OUT(dst, src) \
+#define LIBXCRYPT_OUT(dst, src) \
 	(dst)[0] = (unsigned char)(src); \
 	(dst)[1] = (unsigned char)((src) >> 8); \
 	(dst)[2] = (unsigned char)((src) >> 16); \
@@ -254,15 +254,15 @@ void MD4_Final(uint8_t result[16], MD4_CTX *ctx)
 	memset(&ctx->buffer[used], 0, available - 8);
 
 	ctx->lo <<= 3;
-	OUT(&ctx->buffer[56], ctx->lo)
-	OUT(&ctx->buffer[60], ctx->hi)
+	LIBXCRYPT_OUT(&ctx->buffer[56], ctx->lo)
+	LIBXCRYPT_OUT(&ctx->buffer[60], ctx->hi)
 
 	body(ctx, ctx->buffer, 64);
 
-	OUT(&result[0], ctx->a)
-	OUT(&result[4], ctx->b)
-	OUT(&result[8], ctx->c)
-	OUT(&result[12], ctx->d)
+	LIBXCRYPT_OUT(&result[0], ctx->a)
+	LIBXCRYPT_OUT(&result[4], ctx->b)
+	LIBXCRYPT_OUT(&result[8], ctx->c)
+	LIBXCRYPT_OUT(&result[12], ctx->d)
 
 	explicit_bzero(ctx, sizeof(*ctx));
 }
