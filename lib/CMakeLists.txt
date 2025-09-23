@@ -67,7 +67,6 @@ target_sources(libxcrypt PUBLIC
 
 if(CMAKE_C_STANDARD STREQUAL 17)
     target_compile_definitions(libxcrypt PRIVATE -DHAVE_STATIC_ASSERT_IN_ASSERT_H)
-    target_compile_definitions(libxcrypt PRIVATE -DHAVE_MEMSET_S)
 endif()
 
 if(CMAKE_C_BYTE_ORDER STREQUAL BIG_ENDIAN)

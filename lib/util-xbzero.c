@@ -49,7 +49,8 @@
 #  elif defined __clang_major__ && __clang_major__ >= 4
 #   pragma clang diagnostic ignored "-Wvla"
 #  endif
-
+# elif defined(_MSC_VER)
+  /* see impl below */
 #else
 # error "Don't know how to observe memory access"
 #endif
@@ -57,7 +58,11 @@
 NO_INLINE void
 explicit_bzero (void *s, size_t len)
 {
+#ifdef _MSC_VER
+  SecureZeroMemory(s, len);
+#else
   memset (s, 0, len);
   OBSERVE_MEM (s, len);
+#endif
 }
 #endif
