@@ -46,6 +46,11 @@
 #include <sys/param.h>
 #endif
 
+#ifdef _MSC_VER
+#define NOMINMAX
+#include <Windows.h>
+#endif
+
 /* unistd.h may contain declarations of crypt, crypt_r, crypt_data,
    encrypt, and setkey; if present, they may be incompatible with our
    declarations.  Rename them out of the way with macros.  This needs
