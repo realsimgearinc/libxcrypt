@@ -69,6 +69,15 @@ if(CMAKE_C_STANDARD STREQUAL 17)
     target_compile_definitions(libxcrypt PRIVATE -DHAVE_STATIC_ASSERT_IN_ASSERT_H)
 endif()
 
+target_compile_definitions(libxcrypt PRIVATE
+    -DINCLUDE_crypt
+    -DINCLUDE_crypt_r
+    -DINCLUDE_crypt_rn
+    -DINCLUDE_crypt_gensalt
+    -DINCLUDE_crypt_gensalt_ra
+    -DINCLUDE_crypt_gensalt_rn
+)
+
 if(CMAKE_C_BYTE_ORDER STREQUAL BIG_ENDIAN)
     target_compile_definitions(libxcrypt PRIVATE -DENDIANNESS_IS_BIG)
 elseif(CMAKE_C_BYTE_ORDER STREQUAL LITTLE_ENDIAN)
